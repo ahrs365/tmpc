@@ -2,6 +2,8 @@
 
 采用 T-MPC++ 算法，支持动态障碍物避障和拓扑引导路径规划。无 ROS 依赖，可独立运行。在原项目的基础上，去除了ros依赖，并增加了场景加载模块，可以加载不同场景进行测试。
 
+本规划器可以作为[navsim-local](https://github.com/ahrs365/navsim-local)的一个规划器插件进行使用，也可单独使用
+
 场景可通过在线场景编辑器进行生成：[地址](https://www.gl-robotics.com/navsim-online/index.html)
 
 ![alt text](docs/image-6.png)
