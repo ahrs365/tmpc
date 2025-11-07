@@ -1,0 +1,124 @@
+# This is a basic workflow to help you get started with Actions
+name: Test Solver Generation Package
+
+# Controls when the workflow will run
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  basic:
+    runs-on: ubuntu-20.04
+    permissions: write-all
+    env:
+      LD_LIBRARY_PATH: /home/runner/work/mpc_planner/mpc_planner/acados/lib
+      ACADOS_SOURCE_DIR: /home/runner/work/mpc_planner/mpc_planner/acados
+      
+    steps:
+      #----------------------------------------------
+      #       check-out repo and set-up python
+      #----------------------------------------------
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up python
+        id: setup-python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8.10
+      #----------------------------------------------
+      #  -----  install & configure poetry  -----
+      #----------------------------------------------
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 1.5.1
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+
+        #----------------------------------------------
+      #       load cached venv if cache exists
+      #----------------------------------------------
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+      - name: Cache Acados dependencies
+        id: cached-acados-dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            acados/
+          key: acados-${{ runner.os }}-${{ hashFiles('/home/runner/work/mpc_planner/mpc_planner/acados/build/Makefile') }}
+
+      #----------------------------------------------
+      # install dependencies if cache does not exist
+      #----------------------------------------------
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+      #----------------------------------------------
+      # install your root project, if required
+      #----------------------------------------------
+      - name: Install library
+        run: poetry install --no-interaction --no-root
+      - name: Clone Acados repository
+        if: steps.cached-acados-dependencies.outputs.cache-hit != 'true'
+        run: |
+          git clone https://github.com/acados/acados.git
+          cd acados
+          git submodule update --recursive --init
+          mkdir -p build
+          cd build
+          cmake -DACADOS_WITH_QPOASES=ON ..
+          make install -j4
+          cd ..
+          cd bin
+          wget https://github.com/acados/tera_renderer/releases/download/v0.0.34/t_renderer-v0.0.34-linux
+          mv t_renderer-v0.0.34-linux t_renderer
+          chmod +x t_renderer
+      - name: Link Acados and Poetry
+        run: |
+          poetry add -e /home/runner/work/mpc_planner/mpc_planner/acados/interfaces/acados_template
+
+      #----------------------------------------------
+      #              run test suite
+      #----------------------------------------------
+      # Runs a set of commands using the runners shell
+      - name: Run pytest
+        run: PYTHONPATH=src/ poetry run python -m pytest solver_generator/test/ --cov-report=xml:solver_generator/coverage.xml --cov-config=solver_generator/test/.coveragerc --cov --cov-fail-under=70
+
+      #----------------------------------------------
+      #              report results with badge
+      #----------------------------------------------
+      - name: Pytest coverage comment
+        uses: MishaKav/pytest-coverage-comment@main
+        id: coverageComment
+        with:
+          pytest-xml-coverage-path: ./solver_generator/coverage.xml
+          title: Solver Generation
+          badge-title: solver_generator
+          hide-badge: false
+          hide-report: false
+          create-new-comment: false
+          hide-comment: false
+          report-only-changed-files: false
+          remove-link-from-badge: false
+          unique-id-for-comment: python3.8.10
+      - name: Create the Badge
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: 8356b652d94441ec2318b597dcf4680d
+          filename: test.json
+          label: Coverage Solver Generation
+          message: ${{ steps.coverageComment.outputs.coverage }}
+          color: ${{ steps.coverageComment.outputs.color }}
+          namedLogo: python

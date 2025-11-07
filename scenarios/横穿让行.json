@@ -1,0 +1,91 @@
+{
+  "name": "s5",
+  "timestamp": 1762480212204,
+  "startPose": {
+    "x": -0.10096193598687186,
+    "y": 0.08002617234440557,
+    "yaw": 0.014852845933455365
+  },
+  "goalPose": {
+    "x": 38.97088487573702,
+    "y": -0.0356267846271523,
+    "yaw": 0.04817485964220842,
+    "tol": {
+      "pos": 0.2,
+      "yaw": 0.1
+    }
+  },
+  "obstacles": {
+    "circles": [],
+    "polygons": [],
+    "dynamic": [
+      {
+        "kind": "circle",
+        "data": {
+          "type": "circle",
+          "r": 0.5289994060903195
+        },
+        "state": {
+          "x": 7.780964833715548,
+          "y": 3.630819913091052,
+          "vx": 3.061616997868383e-17,
+          "vy": 0.9,
+          "yaw": 1.5707963267948966
+        }
+      },
+      {
+        "kind": "circle",
+        "data": {
+          "type": "circle",
+          "r": 0.5567575036349145
+        },
+        "state": {
+          "x": 7.84689487269503,
+          "y": -3.9316560889981718,
+          "vx": 3.061616997868383e-17,
+          "vy": 1.9,
+          "yaw": 1.5707963267948966
+        }
+      },
+      {
+        "kind": "rect",
+        "data": {
+          "type": "rect",
+          "w": 1.1173747200773054,
+          "h": 0.5586873600386527,
+          "yaw": 1.5025052247132837
+        },
+        "state": {
+          "x": 19.46724725312816,
+          "y": -8.399206671116678,
+          "vx": 0.03411901660564499,
+          "vy": 0.4988345343957891,
+          "yaw": 1.5025052247132837
+        }
+      }
+    ]
+  },
+  "chassisType": "differential",
+  "chassisConfig": {
+    "model": "differential",
+    "wheelbase": 0,
+    "track_width": 0.4,
+    "limits": {
+      "v_max": 2,
+      "a_max": 2,
+      "omega_max": 2,
+      "steer_max": 0
+    },
+    "geometry": {
+      "body_length": 0.5,
+      "body_width": 0.5,
+      "body_height": 0.3,
+      "wheel_radius": 0.08,
+      "wheel_width": 0.05,
+      "front_overhang": 0.3,
+      "rear_overhang": 0.2,
+      "caster_count": 2,
+      "track_width_ratio": 0
+    }
+  }
+}

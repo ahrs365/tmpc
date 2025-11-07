@@ -1,0 +1,61 @@
+{
+  "name": "s1",
+  "timestamp": 1762488729790,
+  "startPose": {
+    "x": -0.0005798478965131082,
+    "y": -0.0680131073154362,
+    "yaw": -0.028131261062571564
+  },
+  "goalPose": {
+    "x": 16.384033075656532,
+    "y": -0.00895056237869074,
+    "yaw": 0.014852846157941031,
+    "tol": {
+      "pos": 0.2,
+      "yaw": 0.1
+    }
+  },
+  "obstacles": {
+    "circles": [],
+    "polygons": [],
+    "dynamic": [
+      {
+        "kind": "circle",
+        "data": {
+          "type": "circle",
+          "r": 0.4805785949798104
+        },
+        "state": {
+          "x": -4.6142476895917506,
+          "y": 0.007329895532557806,
+          "vx": 3,
+          "vy": 0,
+          "yaw": 0
+        }
+      }
+    ]
+  },
+  "chassisType": "differential",
+  "chassisConfig": {
+    "model": "differential",
+    "wheelbase": 0,
+    "track_width": 0.4,
+    "limits": {
+      "v_max": 2,
+      "a_max": 2,
+      "omega_max": 2,
+      "steer_max": 0
+    },
+    "geometry": {
+      "body_length": 0.5,
+      "body_width": 0.5,
+      "body_height": 0.3,
+      "wheel_radius": 0.08,
+      "wheel_width": 0.05,
+      "front_overhang": 0.3,
+      "rear_overhang": 0.2,
+      "caster_count": 2,
+      "track_width_ratio": 0
+    }
+  }
+}

@@ -1,0 +1,52 @@
+# 场景按钮配置文件
+# 定义3x3按钮网格，每个按钮对应一个场景文件
+# 按钮从左到右、从上到下编号为 1-9
+# label: 按钮上显示的文字（支持中文）
+# short_label: 短标签（可选，用于按钮空间有限时）
+
+buttons:
+  - id: 1
+    label: "密集动态"
+    short_label: "密集动"
+    scenario: "scenarios/密集动态.json"
+
+  - id: 2
+    label: "密集动态1"
+    short_label: "密集1"
+    scenario: "scenarios/密集动态1.json"
+
+  - id: 3
+    label: "密集静态"
+    short_label: "密集静"
+    scenario: "scenarios/密集静态.json"
+
+  - id: 4
+    label: "对向来车"
+    short_label: "对向"
+    scenario: "scenarios/对向来车.json"
+
+  - id: 5
+    label: "横穿"
+    short_label: "横穿"
+    scenario: "scenarios/横穿.json"
+
+  - id: 6
+    label: "横穿让行"
+    short_label: "让行"
+    scenario: "scenarios/横穿让行.json"
+
+  - id: 7
+    label: "超车"
+    short_label: "超车"
+    scenario: "scenarios/超车.json"
+
+  - id: 8
+    label: "跟车"
+    short_label: "跟车"
+    scenario: "scenarios/跟车.json"
+
+  - id: 9
+    label: "避让后车"
+    short_label: "避让"
+    scenario: "scenarios/避让后车.json"
+
