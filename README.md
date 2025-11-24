@@ -218,6 +218,8 @@ rm -rf ~/.cache/matplotlib
 
 ### 2. 安装 ACADOS
 
+注意，v0.4.0经过验证可以使用，尽量安装这个版本。
+
 ```bash
 # 克隆 ACADOS 仓库
 cd ~
